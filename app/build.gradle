@@ -21,6 +21,12 @@ android {
         }
     }
 
+//    enable databinding
+    dataBinding {
+        enabled = true
+    }
+
+//    add java 8 features support
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
