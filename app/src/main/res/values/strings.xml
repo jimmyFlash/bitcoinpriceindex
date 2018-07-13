@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">bitcoinPriceIndex</string>
+    <string name="click_to_load">click to load</string>
+    <string name="load">Load</string>
 </resources>

@@ -47,5 +47,5 @@ class BitcoinIndexRemoteDataSource {
 
 interface OnBitcointRemotePriceCallback {
     fun onDataReady(data : Example?)
-    fun onFail(cause: String)
+    fun onFail(error: String)
 }
