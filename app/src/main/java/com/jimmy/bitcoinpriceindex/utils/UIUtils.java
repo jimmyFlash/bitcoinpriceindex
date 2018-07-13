@@ -32,8 +32,8 @@ import static com.jimmy.bitcoinpriceindex.Constants.DELAY_TIME_MILLIS;
 
 
 
-final class WorkerUtils {
-    private static final String TAG = WorkerUtils.class.getSimpleName();
+final class UIUtils {
+    private static final String TAG = UIUtils.class.getSimpleName();
 
     /**
      * Create a Notification that is shown as a heads-up notification if possible.
@@ -54,7 +54,7 @@ final class WorkerUtils {
             String description = Constants.VERBOSE_NOTIFICATION_CHANNEL_DESCRIPTION;
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel =
-                    new NotificationChannel(CHANNEL_ID, name, importance);
+                    new NotificationChannel(Constants.CHANNEL_ID, name, importance);
             channel.setDescription(description);
 
             // Add the channel
@@ -67,7 +67,7 @@ final class WorkerUtils {
         }
 
         // Create the notification
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, Constants.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle(Constants.NOTIFICATION_TITLE)
                 .setContentText(message)
@@ -83,12 +83,12 @@ final class WorkerUtils {
      */
     static void sleep() {
         try {
-            Thread.sleep(DELAY_TIME_MILLIS, 0);
+            Thread.sleep(Constants.DELAY_TIME_MILLIS, 0);
         } catch (InterruptedException e) {
             Log.d(TAG, e.getMessage());
         }
     }
 
-    private WorkerUtils() {
+    private UIUtils() {
     }
 }
