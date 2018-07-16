@@ -13,7 +13,7 @@ object LoadLocalJSON {
 
 
     fun loadJSONFromAsset(cntxt: Context, file: String): JSONObject? {
-        var json: String? = null
+        val json: String?
         var jsoonOb: JSONObject? = null
         try {
             val iStream = cntxt.assets.open("$file.json")

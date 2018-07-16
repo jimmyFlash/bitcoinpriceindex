@@ -1,20 +1,12 @@
 package com.jimmy.bitcoinpriceindex.data
 
-import android.arch.lifecycle.MutableLiveData
-import android.os.AsyncTask
-import android.util.Log
-import android.widget.Toast
+import com.jimmy.bitcoinpriceindex.Constants.FAIL_TO_LOAD_ERROR
 import com.jimmy.bitcoinpriceindex.data.models.Example
-import com.jimmy.bitcoinpriceindex.data.models.Time
 import com.jimmy.bitcoinpriceindex.services.APIClient
 import com.jimmy.bitcoinpriceindex.services.APIInterface
-import org.json.JSONException
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.ArrayList
-import java.util.HashMap
 
 class BitcoinIndexRemoteDataSource {
 
@@ -24,11 +16,10 @@ class BitcoinIndexRemoteDataSource {
 
     fun getBitcointRemotePrice(onBitcointRemotePriceCallback: OnBitcointRemotePriceCallback) {
 
-        var listen = call.enqueue( object : Callback<Example> {// how to implements an inline interface deceleration
+        call.enqueue( object : Callback<Example> {// how to implements an inline interface deceleration
             override fun onFailure(call: Call<Example>?, t: Throwable?) {
                 call?.cancel()
-
-                onBitcointRemotePriceCallback.onFail("\n${t?.cause}  \n${t?.message}")
+                onBitcointRemotePriceCallback.onFail("\n${t?.cause}  \n${t?.message}", FAIL_TO_LOAD_ERROR)
             }
 
             override fun onResponse(call: Call<Example>?, response: Response<Example>?) {
@@ -38,14 +29,10 @@ class BitcoinIndexRemoteDataSource {
                 }
             }
         })
-
     }
-
-
-
 }
 
 interface OnBitcointRemotePriceCallback {
     fun onDataReady(data : Example?)
-    fun onFail(error: String)
+    fun onFail(error: String, errorCode : Int )
 }

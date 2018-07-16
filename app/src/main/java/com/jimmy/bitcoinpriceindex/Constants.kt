@@ -12,6 +12,11 @@ object Constants {
     const val NOTIFICATION_ID = 1
 
     const val DELAY_TIME_MILLIS: Long = 3000
+    const val FAIL_TO_LOAD_ERROR: Int = 500
+    const val SUCCESS_LOAD: Int = 100
+    const val OFFLINE_LOAD: Int = 300
 
     const val BPI_ENDPOINT = "https://api.coindesk.com/v1/bpi/currentprice.json"
+
+
 }// Ensures this class is never instantiated

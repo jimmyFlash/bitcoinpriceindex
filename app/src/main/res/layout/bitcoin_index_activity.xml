@@ -2,7 +2,8 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
     <data>
 
@@ -11,6 +12,10 @@
         <variable
             name="viewmodel"
             type="com.jimmy.bitcoinpriceindex.ui.viwemodel.BitcoinIndexViewModel" />
+
+        <variable
+            name="status"
+            type="com.jimmy.bitcoinpriceindex.data.models.StatusModel"/>
     </data>
 
 
@@ -33,22 +38,36 @@
             android:scaleType="centerInside"
             android:adjustViewBounds="true"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:onClick="@{() -> viewModel.getBitcoinPriceRepoData()}"
-            android:clickable="@{viewModel.isLoading ? false : true}"/>
+            android:onClick="@{() -> viewmodel.getBitcoinPriceRepoData()}"
+            android:clickable="@{safeUnbox(viewmodel.isLoading) ? false : true}"
+            android:visibility="@{safeUnbox(viewmodel.isLoading) ? View.INVISIBLE : View.VISIBLE}"
+            app:iconType="@{status.statusCode}" />
+
+        <android.support.v4.widget.ContentLoadingProgressBar
+            android:id="@+id/progress"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.3"
+            style="?android:attr/progressBarStyleLarge"
+            android:visibility="@{safeUnbox(viewmodel.isLoading) ? View.VISIBLE : View.INVISIBLE}"
+            />
 
         <TextView
             android:id="@+id/click_load"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="22sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/logo"
             android:layout_marginTop="10dp"
             android:gravity="center_horizontal"
-            android:text="@{viewModel.text}"/>
-
-
+            android:text="@{viewmodel.text}"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progress"
+            tools:text="ojoooihoihohoihiohhoihio" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

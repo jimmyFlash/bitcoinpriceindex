@@ -38,11 +38,15 @@ class BitcoinIndexActivity : AppCompatActivity() {
 
         Handler().postDelayed( {
             mViewModel.getBitcoinPriceRepoData()
-        },15000 )
+        },18000 )
 
 
         mViewModel.example.observe(this,  Observer<Example>{
             Log.e("KKKKKKKKKK", it?.disclaimer)
+        })
+
+        mViewModel.status.observe(this,  Observer<Int>{
+            Log.e("MMMMMMMMMMM", "$it")
         })
     }
 }
