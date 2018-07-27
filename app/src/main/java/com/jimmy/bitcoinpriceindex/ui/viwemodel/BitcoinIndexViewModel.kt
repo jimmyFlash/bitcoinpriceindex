@@ -1,9 +1,9 @@
 package com.jimmy.bitcoinpriceindex.ui.viwemodel
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableField
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import com.jimmy.bitcoinpriceindex.Constants
 import com.jimmy.bitcoinpriceindex.data.BitcoinIndexRepository
 import com.jimmy.bitcoinpriceindex.data.models.Example
@@ -15,7 +15,7 @@ import com.jimmy.bitcoinpriceindex.managers.NetManager
     That context is context of the application, not of an Activity
 
  */
-class BitcoinIndexViewModel(application :Application) : AndroidViewModel(application){
+class BitcoinIndexViewModel(application : Application) : AndroidViewModel(application){
 
     val nm = NetManager(this.getApplication())
     val bitconIndxRepository = BitcoinIndexRepository(nm)

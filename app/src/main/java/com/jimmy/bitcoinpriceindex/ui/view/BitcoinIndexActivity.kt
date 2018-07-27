@@ -1,16 +1,19 @@
 package com.jimmy.bitcoinpriceindex.ui.view
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
+
+
 import android.databinding.DataBindingUtil
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.jimmy.bitcoinpriceindex.R
 import com.jimmy.bitcoinpriceindex.data.models.Example
 import com.jimmy.bitcoinpriceindex.databinding.BitcoinIndexActivityBinding
 import com.jimmy.bitcoinpriceindex.ui.viwemodel.BitcoinIndexViewModel
+//import com.jimmy.bitcoinpriceindex.utils.UIUtils
 
 class BitcoinIndexActivity : AppCompatActivity() {
 

@@ -1,13 +1,13 @@
 package com.jimmy.bitcoinpriceindex.utils
 
+
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import android.support.v4.app.NotificationCompat
-import android.support.v4.app.NotificationManagerCompat
 import android.util.Log
-
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.jimmy.bitcoinpriceindex.Constants
 import com.jimmy.bitcoinpriceindex.R
 
@@ -17,9 +17,10 @@ object UIUtils {
      val TAG = UIUtils::class.java.simpleName
 
 
-    /**
-     * Method for sleeping for a fixed about of time to emulate slower work
-     */
+/*
+     * Method for sleeping for a fixed about of time to emulate slower work*/
+
+
     fun sleep() {
         try {
             Thread.sleep(Constants.DELAY_TIME_MILLIS, 0)
@@ -28,7 +29,7 @@ object UIUtils {
         }
     }
 
-    /**
+/*
      * Create a Notification that is shown as a heads-up notification if possible.
      *
      * For this codelab, this is used to show a notification so that you know when different steps
@@ -36,7 +37,8 @@ object UIUtils {
      *
      * @param message Message shown on the notification
      * @param context Context needed to create Toast
-     */
+*/
+
     fun makeStatusNotification(message: String, context: Context) {
 
         // Make a channel if necessary

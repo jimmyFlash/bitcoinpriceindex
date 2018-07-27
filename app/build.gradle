@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.jimmy.bitcoinpriceindex"
         minSdkVersion 19
@@ -37,30 +37,67 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$versions.espresso"
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    androidTestImplementation "androidx.test:runner:$versions.test"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espresso"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 
-    implementation "android.arch.lifecycle:extensions:$versions.lifecycle"
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
 
-    implementation "com.android.support:appcompat-v7:$versions.support"
-    implementation "com.android.support:support-v4:$versions.support"
-    implementation "com.android.support.constraint:constraint-layout:$versions.constraint_layout"
-    implementation "com.github.bumptech.glide:glide:$versions.glide"
+    implementation "androidx.appcompat:appcompat:$versions.support"
+
+    implementation ('com.google.android.material:material:1.0.0-beta01')
+//    implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
+
+    implementation "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
+    implementation ("com.github.bumptech.glide:glide:$versions.glide") {
+        exclude group: "com.android.support"
+    }
 
     // work manager dependency
-    implementation "android.arch.work:work-runtime:$versions.work"
+    implementation ("android.arch.work:work-runtime:$versions.work") {
+        exclude group: "com.android.support"
+    }
 
     implementation ("com.squareup.retrofit2:retrofit:$versions.retrofit"){
         // exclude Retrofit’s OkHttp dependency module and define your own module import
         exclude module: 'okhttp'
     }
-    implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
-    implementation "com.google.code.gson:gson:$versions.gson"
+    implementation ("com.squareup.retrofit2:converter-gson:$versions.retrofit")
+    implementation ("com.google.code.gson:gson:$versions.gson") {
+        exclude group: "com.android.support" , module: "support-V4"
+    }
 
     implementation "com.squareup.okhttp3:logging-interceptor:$versions.loggin_interceptor"
-    implementation "com.squareup.okhttp3:okhttp:$versions.okttp"
+    implementation ("com.squareup.okhttp3:okhttp:$versions.okttp")
+
+}
+
+// dependencies test and print out
+configurations{
+    kotlin_jdk // tested OK no android.support.v4
+    material_lib // tested OK no android.support.v4
+    glide // tested OK no android.support.v4
+    archComp_workmanager //tested OK no android.support.v4
+    retrofit //tested OK no android.support.v4
+    retrofit_gson //tested OK no android.support.v4
+    gson //tested OK no android.support.v4
+    okhttp_loggin //tested OK no android.support.v4
+    okhttp //tested OK no android.support.v4
+
+}
+
+dependencies{
+    kotlin_jdk "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    material_lib 'com.google.android.material:material:1.0.0-beta01'
+    glide "com.github.bumptech.glide:glide:$versions.glide"
+    archComp_workmanager "android.arch.work:work-runtime:$versions.work"
+    retrofit "com.squareup.retrofit2:retrofit:$versions.retrofit"
+    retrofit_gson "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+    gson "com.google.code.gson:gson:$versions.gson"
+    okhttp_loggin "com.squareup.okhttp3:logging-interceptor:$versions.loggin_interceptor"
+    okhttp "com.squareup.okhttp3:okhttp:$versions.okttp"
 }
 
 

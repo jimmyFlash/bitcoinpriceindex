@@ -19,7 +19,7 @@
     </data>
 
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.view.BitcoinIndexActivity">
@@ -43,7 +43,7 @@
             android:visibility="@{safeUnbox(viewmodel.isLoading) ? View.INVISIBLE : View.VISIBLE}"
             app:iconType="@{status.statusCode}" />
 
-        <android.support.v4.widget.ContentLoadingProgressBar
+        <androidx.core.widget.ContentLoadingProgressBar
             android:id="@+id/progress"
             android:layout_width="150dp"
             android:layout_height="150dp"
@@ -69,5 +69,5 @@
             app:layout_constraintTop_toBottomOf="@+id/progress"
             tools:text="ojoooihoihohoihiohhoihio" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
