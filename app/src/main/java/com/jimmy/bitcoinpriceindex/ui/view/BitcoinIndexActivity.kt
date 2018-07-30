@@ -14,11 +14,16 @@ import com.jimmy.bitcoinpriceindex.ui.viwemodel.BitcoinIndexViewModel
 
 class BitcoinIndexActivity : AppCompatActivity() {
 
+
+
     private lateinit var mViewModel: BitcoinIndexViewModel
 
     lateinit var binding : BitcoinIndexActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        //todo add implemation fro Room and save prices to it
+        //todo fix retrofit issue with SSL handshake error
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.bitcoin_index_activity)
