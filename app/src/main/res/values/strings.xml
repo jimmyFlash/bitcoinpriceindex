@@ -2,4 +2,6 @@
     <string name="app_name">bitcoinPriceIndex</string>
     <string name="click_to_load">click to load</string>
     <string name="load">Load</string>
+    <string name="load_data">Loading Bitcoin data</string>
+    <string name="tap_msg">Tap icon to load data</string>
 </resources>
