@@ -10,11 +10,39 @@ import android.util.Log
 
 import com.jimmy.bitcoinpriceindex.Constants
 import com.jimmy.bitcoinpriceindex.R
+import java.util.*
+
+
+
+
 
 
 object UIUtils {
 
-     val TAG = UIUtils::class.java.simpleName
+    val TAG = UIUtils::class.java.simpleName
+
+    var currencyLocaleMap: SortedMap<Currency, Locale>? = null
+
+    init {// static initalizer block in kotlin
+
+       currencyLocaleMap = TreeMap< Currency, Locale >(Comparator<Currency> { c1, c2
+           -> c1.currencyCode.compareTo(c2.currencyCode) })
+
+       for (locale : Locale in Locale.getAvailableLocales()) {
+           try {
+               val currency = Currency.getInstance(locale)
+               (currencyLocaleMap as TreeMap<Currency, Locale>)[currency] = locale
+           } catch (e: Exception) {
+               //
+           }
+       }
+
+    }
+
+    fun getCurrencySymbol (currencyCode: String):String{
+        val currency = Currency.getInstance(currencyCode)
+        return currency.getSymbol(currencyLocaleMap?.get(currency))
+    }
 
 
     /**
@@ -66,5 +94,7 @@ object UIUtils {
         // Show the notification
         NotificationManagerCompat.from(context).notify(Constants.NOTIFICATION_ID, builder.build())
     }
+
+
 
 }
