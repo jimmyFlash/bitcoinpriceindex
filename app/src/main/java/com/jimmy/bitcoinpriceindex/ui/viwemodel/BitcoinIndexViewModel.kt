@@ -5,10 +5,12 @@ import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableField
 import com.jimmy.bitcoinpriceindex.Constants
+import com.jimmy.bitcoinpriceindex.R
 import com.jimmy.bitcoinpriceindex.data.BitcoinIndexRepository
 import com.jimmy.bitcoinpriceindex.data.models.Example
 import com.jimmy.bitcoinpriceindex.data.models.StatusModel
 import com.jimmy.bitcoinpriceindex.managers.NetManager
+import com.jimmy.bitcoinpriceindex.utils.UIUtils
 
 /*
     AndroidViewModel from Lifecycle-aware components library that has context.
@@ -22,25 +24,38 @@ class BitcoinIndexViewModel(application :Application) : AndroidViewModel(applica
 
     var  example : MutableLiveData<Example> = MutableLiveData()
     var  status : MutableLiveData<Int> = MutableLiveData()
+    val ctx = this.getApplication<Application>()
 
     // ObservableField(T val)  Wraps the given object and creates an observable object with default value
-    val text = ObservableField("Tap icon to load data")
+    val text = ObservableField(ctx.getString(R.string.tap_msg))
     val isLoading = ObservableField(false)
     val loadStatus = ObservableField(Constants.SUCCESS_LOAD)
-
     var statusModel  = StatusModel(Constants.SUCCESS_LOAD)
 
 
     fun getBitcoinPriceRepoData(){
 
         isLoading.set(true)
-        text.set("Loading bitcoin data")
+        text.set(ctx.getString(R.string.load_data))
         bitconIndxRepository.getRepositories(object : BitcoinIndexRepository.OnBitcointDataReady {
             override fun onDataReady(data: Example?, code: Int) {
 
                 isLoading.set(false)
                 status.value = code
-                text.set("Tap icon to load data")
+
+//                Html.fromHtml("&#x2713;", Html.FROM_HTML_MODE_LEGACY)
+                //todo method to display currency symbol from html
+                val stringBuilder = StringBuilder()
+
+                stringBuilder.append("Last Update: ${data?.time?.updated} :\n ")
+                        .append("\n${data?.bpi?.uSD?.code} : ${data?.bpi?.uSD?.code?.let { UIUtils.getCurrencySymbol(it) }} " +
+                                "${data?.bpi?.uSD?.rate}")
+                        .append("\n${data?.bpi?.eUR?.code} : ${data?.bpi?.eUR?.code?.let { UIUtils.getCurrencySymbol(it) }}" +
+                                " ${data?.bpi?.eUR?.rate}")
+                        .append("\n${data?.bpi?.gBP?.code} : ${data?.bpi?.gBP?.code?.let { UIUtils.getCurrencySymbol(it) }}" +
+                                " ${data?.bpi?.gBP?.rate}")
+
+                text.set(stringBuilder.toString())
                 loadStatus.set(code)
                 statusModel.statusCode = code
                 example.value = data

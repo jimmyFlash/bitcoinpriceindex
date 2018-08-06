@@ -22,8 +22,8 @@ class BitcoinIndexActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        //todo add implemation fro Room and save prices to it
-        //todo fix retrofit issue with SSL handshake error
+        //todo add implementation for Room and save prices to it
+        //todo use workmanager to store updated prices in room DB for offline
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.bitcoin_index_activity)
@@ -41,17 +41,27 @@ class BitcoinIndexActivity : AppCompatActivity() {
         binding.executePendingBindings()
 
 
-        Handler().postDelayed( {
+        // use timed handler for debugging purposes
+       /* Handler().postDelayed( {
             mViewModel.getBitcoinPriceRepoData()
         },18000 )
+        */
+
+        // initialize call to server with click listener on logo img
+        binding.logo.setOnClickListener {
+            mViewModel.getBitcoinPriceRepoData()
+        }
 
 
         mViewModel.example.observe(this,  Observer<Example>{
-            Log.e("KKKKKKKKKK", it?.disclaimer)
+            Log.e("Disclaimer observer", it?.disclaimer)
+
         })
 
         mViewModel.status.observe(this,  Observer<Int>{
-            Log.e("MMMMMMMMMMM", "$it")
+            Log.e("Status observer", "$it")
         })
+
+        //initialize and save date and data to room DB
     }
 }
