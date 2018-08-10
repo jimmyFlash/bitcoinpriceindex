@@ -8,4 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="orangeAccent" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorAccent">#f57c00</item>
+    </style>
+
 </resources>
