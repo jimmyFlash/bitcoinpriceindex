@@ -16,7 +16,7 @@ class BitcoinIndexRemoteDataSource {
 
     fun getBitcointRemotePrice(onBitcointRemotePriceCallback: OnBitcointRemotePriceCallback) {
 
-        call.enqueue( object : Callback<Example> {// how to implements an inline interface deceleration
+        call.clone().enqueue( object : Callback<Example> {// how to implements an inline interface deceleration
             override fun onFailure(call: Call<Example>?, t: Throwable?) {
                 call?.cancel()
                 onBitcointRemotePriceCallback.onFail("\n${t?.cause}  \n${t?.message}", FAIL_TO_LOAD_ERROR)

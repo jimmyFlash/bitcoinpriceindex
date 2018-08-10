@@ -2,10 +2,12 @@ package com.jimmy.bitcoinpriceindex.ui.view
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.res.Resources
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.support.graphics.drawable.VectorDrawableCompat
 import android.util.Log
 import com.jimmy.bitcoinpriceindex.R
 import com.jimmy.bitcoinpriceindex.data.models.Example
@@ -33,6 +35,12 @@ class BitcoinIndexActivity : AppCompatActivity() {
 
 
         binding.viewmodel = mViewModel
+
+        // set VectorDrawable for pre-Lollipop devices
+        val resources = resources
+        val theme = theme
+        val drawable = VectorDrawableCompat.create(resources, R.drawable.ic_bitcoin, theme)
+        binding.logo.setImageDrawable(drawable)
 
         /*
          Evaluates the pending bindings, updating any Views that have expressions bound to modified

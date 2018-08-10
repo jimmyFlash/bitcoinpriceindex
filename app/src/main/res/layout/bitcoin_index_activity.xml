@@ -27,16 +27,14 @@
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0.3"
-            android:src="@drawable/ic_launcher_foreground"
-            android:scaleType="centerInside"
-            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/ic_bitcoin"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:onClick="@{() -> viewmodel.getBitcoinPriceRepoData()}"
             android:clickable="@{safeUnbox(viewmodel.isLoading) ? false : true}"
@@ -45,18 +43,17 @@
 
         <android.support.v4.widget.ContentLoadingProgressBar
             android:id="@+id/progress"
+            style="?android:attr/progressBarStyleLarge"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.3"
-            style="?android:attr/progressBarStyleLarge"
             android:visibility="@{safeUnbox(viewmodel.isLoading) ? View.VISIBLE : View.INVISIBLE}"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3" />
 
-        <TextView
+        <android.support.text.emoji.widget.EmojiAppCompatTextView
             android:id="@+id/click_load"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
