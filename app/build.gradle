@@ -75,6 +75,10 @@ dependencies {
     implementation "com.android.support:support-emoji-appcompat:$versions.support"
     implementation "com.android.support:support-emoji-bundled:$versions.support"
 
+
+
+    implementation "com.android.support:support-annotations:$versions.support_annotations"
+
 }
 
 
