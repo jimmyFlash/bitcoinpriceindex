@@ -19,4 +19,18 @@ object Constants {
     const val BPI_ENDPOINT = "https://api.coindesk.com/v1/bpi/currentprice.json"
 
 
+    // sample of emoji
+    // [U+1F469] (WOMAN) + [U+200D] (ZERO WIDTH JOINER) + [U+1F4BB] (PERSONAL COMPUTER)
+    private val WOMAN_TECHNOLOGIST = "\uD83D\uDC69\u200D\uD83D\uDCBB"
+
+    // [U+1F469] (WOMAN) + [U+200D] (ZERO WIDTH JOINER) + [U+1F3A4] (MICROPHONE)
+    public val WOMAN_SINGER = "\uD83D\uDC69\u200D\uD83C\uDFA4"
+
+    @JvmField
+    val EMOJI = WOMAN_TECHNOLOGIST + " " + WOMAN_SINGER
+
+
+
+
+
 }// Ensures this class is never instantiated

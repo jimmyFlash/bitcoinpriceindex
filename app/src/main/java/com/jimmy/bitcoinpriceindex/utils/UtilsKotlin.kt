@@ -96,5 +96,15 @@ object UIUtils {
     }
 
 
+    fun convertUnicodeToJavaEscape(code : Int ){
+        for(c : Char in  StringBuilder().appendCodePoint(code).toString().toCharArray()) {
+              println("\\u  ${Integer.toHexString(c.toInt())}")
+        }
+    }
+
+    // replaced 'U+' by '0x'
+    fun getEmojiByUnicode(code : Int ): String {
+        return  String(Character.toChars(code))
+    }
 
 }

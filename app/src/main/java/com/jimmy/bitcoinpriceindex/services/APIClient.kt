@@ -6,6 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.security.cert.CertificateException
 import java.security.cert.X509Certificate
+import java.util.concurrent.TimeUnit
 import javax.net.ssl.*
 
 /**
@@ -26,10 +27,14 @@ class APIClient {
 
        /*     val client = OkHttpClient.Builder()
                     .addInterceptor(interceptor)
+                    .readTimeout(60, TimeUnit.SECONDS)
+                    .connectTimeout(60, TimeUnit.SECONDS)
                     .build()*/
 
             val client = getUnsafeOkHttpClient()
                     ?.addInterceptor(interceptor)
+                    ?.readTimeout(30, TimeUnit.SECONDS)
+                    ?.connectTimeout(30, TimeUnit.SECONDS)
                     ?.build()
 
             retrofit = Retrofit.Builder()
@@ -46,6 +51,8 @@ class APIClient {
          * enables okhttp to accept untrusted certificates (when behind firewall or proxy)
          */
         fun getUnsafeOkHttpClient() : OkHttpClient.Builder?{
+
+             lateinit var builder : OkHttpClient.Builder
 
             try {
 
@@ -70,14 +77,15 @@ class APIClient {
                 // Create an ssl socket factory with our all-trusting manager
                 val  sslSocketFactory : SSLSocketFactory = sslContext.socketFactory
 
-                val builder = OkHttpClient.Builder()
+                builder = OkHttpClient.Builder()
                 builder.sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
 
                 builder.hostnameVerifier { hostname, session -> true }
                 return builder
             } catch ( e : Exception) {
 //                throw  RuntimeException(e)
-                return null
+                println("OKHTTP error >>>>>>>>>>>> ${e.message}")
+                return OkHttpClient.Builder()
             }
 
         }
