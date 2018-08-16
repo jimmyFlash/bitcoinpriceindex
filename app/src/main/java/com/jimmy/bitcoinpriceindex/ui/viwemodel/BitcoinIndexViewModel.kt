@@ -10,6 +10,7 @@ import com.jimmy.bitcoinpriceindex.data.BitcoinIndexRepository
 import com.jimmy.bitcoinpriceindex.data.models.Example
 import com.jimmy.bitcoinpriceindex.data.models.StatusModel
 import com.jimmy.bitcoinpriceindex.managers.NetManager
+import com.jimmy.bitcoinpriceindex.utils.TypeDefTest
 import com.jimmy.bitcoinpriceindex.utils.UIUtils
 
 /*
@@ -32,8 +33,12 @@ class BitcoinIndexViewModel(application :Application) : AndroidViewModel(applica
     val loadStatus = ObservableField(Constants.SUCCESS_LOAD)
     var statusModel  = StatusModel(Constants.SUCCESS_LOAD)
 
+    val typeDefTst = TypeDefTest(TypeDefTest.ITEM_SERVICES)
+
 
     fun getBitcoinPriceRepoData(){
+
+        typeDefTst.setSpeed(TypeDefTest.ITEM_PORTFOLIO)
 
         isLoading.set(true)
         text.set(ctx.getString(R.string.load_data))
@@ -43,17 +48,25 @@ class BitcoinIndexViewModel(application :Application) : AndroidViewModel(applica
                 isLoading.set(false)
                 status.value = code
 
-//                Html.fromHtml("&#x2713;", Html.FROM_HTML_MODE_LEGACY)
-                //todo method to display currency symbol from html
+                var codepoints = intArrayOf(0x1F1FA, 0x1F1F8)
+                val usFlg = String(codepoints, 0, codepoints.size)
+                codepoints = intArrayOf(0x1F1EA, 0x1F1FA)//
+                val euroFlg = String(codepoints, 0, codepoints.size)
+                codepoints = intArrayOf(0x1F1EC, 0x1F1E7)
+                val gbrFlg = String(codepoints, 0, codepoints.size)
+
+
+                val tearyFaceSmily =  StringBuilder().appendCodePoint(0x1F1E7).toString()
+
                 val stringBuilder = StringBuilder()
 
                 stringBuilder.append("Last Update: ${data?.time?.updated} :\n ")
-                        .append("\n${data?.bpi?.uSD?.code} : ${data?.bpi?.uSD?.code?.let { UIUtils.getCurrencySymbol(it) }} " +
-                                "${data?.bpi?.uSD?.rate}")
-                        .append("\n${data?.bpi?.eUR?.code} : ${data?.bpi?.eUR?.code?.let { UIUtils.getCurrencySymbol(it) }}" +
-                                " ${data?.bpi?.eUR?.rate}")
-                        .append("\n${data?.bpi?.gBP?.code} : ${data?.bpi?.gBP?.code?.let { UIUtils.getCurrencySymbol(it) }}" +
-                                " ${data?.bpi?.gBP?.rate}")
+                        .append("\n$usFlg : ${data?.bpi?.uSD?.rate}" +
+                                " ${data?.bpi?.uSD?.code?.let { UIUtils.getCurrencySymbol(it) }} ")
+                        .append("\n$euroFlg : ${data?.bpi?.eUR?.rate}" +
+                                " ${data?.bpi?.eUR?.code?.let { UIUtils.getCurrencySymbol(it) }}")
+                        .append("\n$gbrFlg : ${data?.bpi?.gBP?.rate}" +
+                                " ${data?.bpi?.gBP?.code?.let { UIUtils.getCurrencySymbol(it) }}")
 
                 text.set(stringBuilder.toString())
                 loadStatus.set(code)
