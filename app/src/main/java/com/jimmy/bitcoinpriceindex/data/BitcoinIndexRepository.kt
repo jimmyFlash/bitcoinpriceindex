@@ -7,6 +7,7 @@ import com.google.gson.Gson
 import com.jimmy.bitcoinpriceindex.Constants
 import com.jimmy.bitcoinpriceindex.data.models.Example
 import com.jimmy.bitcoinpriceindex.managers.NetManager
+import com.jimmy.bitcoinpriceindex.utils.LoadStatusTypeDef
 import org.json.JSONObject
 
 class BitcoinIndexRepository(val netManager: NetManager) {
@@ -25,7 +26,7 @@ class BitcoinIndexRepository(val netManager: NetManager) {
          netManager.isConnectedToInternet?.let {
              if(it) {
                  remoteSource.getBitcointRemotePrice(object : OnBitcointRemotePriceCallback{
-                     override fun onFail(error : String, errorCode :Int) {
+                     override fun onFail(error : String,@LoadStatusTypeDef.Status errorCode :Int) {
                          Log.e(TAG, error)
                          LoadJson(netManager.applicationContext,
                                  "sample_response", errorCode, handlr).execute()
@@ -34,7 +35,7 @@ class BitcoinIndexRepository(val netManager: NetManager) {
                      override fun onDataReady(data: Example?) {
                          Log.e(TAG, data.toString())
                           example = data
-                         handlr.onDataReady(example, Constants.SUCCESS_LOAD)
+                         handlr.onDataReady(example, LoadStatusTypeDef.SUCCESS_LOAD)
                      }
                  })
 
@@ -43,7 +44,7 @@ class BitcoinIndexRepository(val netManager: NetManager) {
 
                  LoadJson(netManager.applicationContext,
                          "sample_response",
-                         Constants.OFFLINE_LOAD,
+                         LoadStatusTypeDef.OFFLINE_LOAD,
                          handlr).execute()
              }
          }
@@ -53,13 +54,13 @@ class BitcoinIndexRepository(val netManager: NetManager) {
 
 
     interface OnBitcointDataReady{
-        fun onDataReady(data : Example?, code : Int)
+        fun onDataReady(data : Example?,@LoadStatusTypeDef.Status code : Int)
     }
 
     companion object {
         internal class LoadJson(private val ctx: Context,
                                 private val indexRepository: String,
-                                private val code: Int,
+                                @LoadStatusTypeDef.Status val code: Int,
                                 private val handlr: OnBitcointDataReady) : AsyncTask<String, String, JSONObject>() {
 
             private var theJson: JSONObject? = null
